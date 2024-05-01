@@ -26,10 +26,10 @@ class Platform:
         self.y = WINDOW_HEIGHT * .85
 
     def update(self):
-        if pyxel.btn(pyxel.KEY_LEFT):
-            self.x += -5
-        if pyxel.btn(pyxel.KEY_RIGHT):
-            self.x += 5
+        if pyxel.btn(pyxel.KEY_LEFT) and self.x >= 0:
+            self.x += -5 if self.x >= 5 else -self.x 
+        if pyxel.btn(pyxel.KEY_RIGHT) and self.x <= WINDOW_WIDTH - PLATFORM_WIDTH:
+            self.x += 5 if self.x <= WINDOW_WIDTH - PLATFORM_WIDTH - 5 else WINDOW_WIDTH - PLATFORM_WIDTH - self.x
 
     def draw(self):
         pyxel.rect(self.x, self.y, PLATFORM_WIDTH, PLATFORM_HEIGHT, 9)
