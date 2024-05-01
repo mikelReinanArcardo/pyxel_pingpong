@@ -2,6 +2,8 @@ import pyxel
 
 WINDOW_WIDTH = 300
 WINDOW_HEIGHT = 300
+PLATFORM_WIDTH = 60
+PLATFORM_HEIGHT = 15
 
 class App:
     def __init__(self):
@@ -30,6 +32,6 @@ class Platform:
             self.x += 5
 
     def draw(self):
-        pyxel.rect(self.x, self.y, 40, 10, 9)
+        pyxel.rect(self.x, self.y, PLATFORM_WIDTH, PLATFORM_HEIGHT, 9)
 
 App()
