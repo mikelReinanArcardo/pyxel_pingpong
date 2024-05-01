@@ -10,7 +10,7 @@ This project was made to enhance my skill in using pyxel
 
 ### Prerequisites
 Make sure you have <a href="https://www.python.org/downloads/">Python3</a> (version 3.7 or higher), before installing the ff:
-1. Install pyxel
+* Install pyxel <br>
 (Windows)
 ```sh
 pip install -U pyxel
@@ -21,7 +21,7 @@ python3 -m pip install -U pyxel
 ```
 
 ### Installation
-1. Clone the repo
+* Clone the repo
 ```sh
 git clone https://github.com/mikelReinanArcardo/pyxel_pingpong.git
 ```
