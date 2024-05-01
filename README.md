@@ -10,7 +10,7 @@ This project was made to enhance my skill in using pyxel
 
 ### Prerequisites
 Make sure you have <a href="https://www.python.org/downloads/">Python3</a> (version 3.7 or higher), before installing the ff:
-* Install pyxel <br>
+<p> * Install pyxel </p>
 (Windows)
 ```sh
 pip install -U pyxel
