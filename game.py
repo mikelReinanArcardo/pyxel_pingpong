@@ -7,28 +7,44 @@ PLATFORM_HEIGHT = 15
 BALL_RADIUS = 7
 BLOCK_SIZE = 10
 
+play = False
+lost = False
+
 class App:
     def __init__(self):
         pyxel.init(WINDOW_WIDTH, WINDOW_HEIGHT)
-        
+        self.startGame()
+        pyxel.run(self.update, self.draw)
+
+    def startGame(self):
+        pyxel.cls(1)
         self.platform = Platform()
         self.ball = Ball(self.platform)
         self.blocks: list[Block] = list()
         for i in range(10):
             self.blocks.append(Block(i*10 + i*20, 10, self.ball))
 
-        pyxel.run(self.update, self.draw)
-
     def update(self):
-        self.platform.update()
-        self.ball.update()
-        for block in self.blocks:
-            if block.collide_with_ball():
-                self.blocks.remove(block)
-                
+        global play, lost
+        if play:
+            self.platform.update()
+            self.ball.update()
+            for block in self.blocks:
+                if block.collide_with_ball():
+                    self.blocks.remove(block)
+        else:
+            if pyxel.btn(pyxel.KEY_SPACE):
+                self.startGame()
+                play = True
+                lost = False
 
     def draw(self):
+        global play, lost
         pyxel.cls(1)
+        if not play:
+            pyxel.text(WINDOW_WIDTH * .38, WINDOW_HEIGHT * .4, "Press SPACE to play", 11)
+        if lost:
+            pyxel.text(WINDOW_WIDTH * .435, WINDOW_HEIGHT * .35, "Game Over!", 11)
         self.platform.draw()
         self.ball.draw()
         for block in self.blocks:
@@ -76,12 +92,14 @@ class Ball:
     def collide_border(self):
         if self.top <= 0:
             self.yDirection = 1
-        if self.bot >= WINDOW_HEIGHT:
-            self.yDirection = -1
         if self.left <= 0:
             self.xDirection = 1
         if self.right >= WINDOW_WIDTH:
             self.xDirection = -1
+        if self.bot >= WINDOW_HEIGHT:
+            global play, lost
+            play = False
+            lost = True
 
     def collide_with_platform(self):
         offset = PLATFORM_WIDTH // 2
