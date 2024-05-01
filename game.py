@@ -4,7 +4,7 @@ WINDOW_WIDTH = 300
 WINDOW_HEIGHT = 300
 PLATFORM_WIDTH = 60
 PLATFORM_HEIGHT = 15
-BALL_RADIUS = 5
+BALL_RADIUS = 7
 
 class App:
     def __init__(self):
@@ -44,9 +44,26 @@ class Ball:
         self.y = WINDOW_HEIGHT // 2
 
     def update(self):
-        self.y += 1
+        self.x += 5 * self.xDirection
+        self.y += 5 * self.yDirection
+        self.collide_border()
 
     def draw(self):
         pyxel.circ(self.x, self.y, BALL_RADIUS, 4)
+
+    def collide_border(self):
+        top = self.y - BALL_RADIUS
+        bot = self.y + BALL_RADIUS
+        right = self.x + BALL_RADIUS
+        left = self.x - BALL_RADIUS
+
+        if top <= 0:
+            self.yDirection = 1
+        if bot >= WINDOW_HEIGHT:
+            self.yDirection = -1
+        if left <= 0:
+            self.xDirection = 1
+        if right >= WINDOW_WIDTH:
+            self.xDirection = -1
 
 App()
