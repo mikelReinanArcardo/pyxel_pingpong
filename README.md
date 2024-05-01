@@ -1,4 +1,4 @@
-# Ping Pong Game
+# Pong Game
 
 ## About the Project
 This project was made to enhance my skill in using pyxel
