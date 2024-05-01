@@ -5,6 +5,7 @@ WINDOW_HEIGHT = 300
 PLATFORM_WIDTH = 60
 PLATFORM_HEIGHT = 15
 BALL_RADIUS = 7
+BLOCK_SIZE = 10
 
 class App:
     def __init__(self):
@@ -12,17 +13,26 @@ class App:
         
         self.platform = Platform()
         self.ball = Ball(self.platform)
+        self.blocks: list[Block] = list()
+        for i in range(10):
+            self.blocks.append(Block(i*10 + i*20, 10, self.ball))
 
         pyxel.run(self.update, self.draw)
 
     def update(self):
         self.platform.update()
         self.ball.update()
+        for block in self.blocks:
+            if block.collide_with_ball():
+                self.blocks.remove(block)
+                
 
     def draw(self):
         pyxel.cls(1)
         self.platform.draw()
         self.ball.draw()
+        for block in self.blocks:
+            block.draw()
 
 class Platform:
     def __init__(self):
@@ -79,5 +89,22 @@ class Ball:
         if ((self.x <= self.platform.x + PLATFORM_WIDTH and self.x >= self.platform.x) and (self.bot >= platform_top and self.top <= platform_top + PLATFORM_HEIGHT)):
             self.yDirection *= -1
             self.xDirection = (self.x - platform_center) / (PLATFORM_WIDTH // 2)
+
+class Block:
+    def __init__(self, x, y, ball: Ball):
+        self.x = x
+        self.y = y
+        self.ball: Ball = ball
+
+    def draw(self):
+        pyxel.rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE, 7)
+
+    def collide_with_ball(self):
+        block_center = self.x + (BLOCK_SIZE // 2)
+        if (self.ball.top <= self.y + BLOCK_SIZE and self.ball.bot >= self.y) and (self.ball.right >= self.x and self.ball.left <= self.x + BLOCK_SIZE):
+            self.ball.yDirection *= -1
+            self.ball.xDirection = (self.ball.x - BALL_RADIUS - block_center) / (BLOCK_SIZE // 2)
+            return True
+        return False
 
 App()
