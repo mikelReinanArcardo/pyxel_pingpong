@@ -84,11 +84,13 @@ class Ball:
             self.xDirection = -1
 
     def collide_with_platform(self):
-        platform_center = self.platform.x  + PLATFORM_WIDTH // 2
+        offset = PLATFORM_WIDTH // 2
+        platform_center = self.platform.x + offset
         platform_top = self.platform.y 
         if ((self.x <= self.platform.x + PLATFORM_WIDTH and self.x >= self.platform.x) and (self.bot >= platform_top and self.top <= platform_top + PLATFORM_HEIGHT)):
             self.yDirection *= -1
-            self.xDirection = (self.x - platform_center) / (PLATFORM_WIDTH // 2)
+            numerator = (self.x - platform_center)
+            self.xDirection = numerator / offset if numerator < offset else 1
 
 class Block:
     def __init__(self, x, y, ball: Ball):
@@ -100,10 +102,12 @@ class Block:
         pyxel.rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE, 7)
 
     def collide_with_ball(self):
-        block_center = self.x + (BLOCK_SIZE // 2)
+        offset = BLOCK_SIZE // 2
+        block_center = self.x + (offset)
         if (self.ball.top <= self.y + BLOCK_SIZE and self.ball.bot >= self.y) and (self.ball.right >= self.x and self.ball.left <= self.x + BLOCK_SIZE):
             self.ball.yDirection *= -1
-            self.ball.xDirection = (self.ball.x - BALL_RADIUS - block_center) / (BLOCK_SIZE // 2)
+            numerator = (self.ball.x - BALL_RADIUS - block_center)
+            self.ball.xDirection = numerator / (offset) if abs(numerator) < offset else 1
             return True
         return False
 
