@@ -9,6 +9,7 @@ BLOCK_SIZE = 10
 
 play = False
 lost = False
+score = 0
 
 class App:
     def __init__(self):
@@ -17,21 +18,24 @@ class App:
         pyxel.run(self.update, self.draw)
 
     def startGame(self):
+        global score
+        score = 0
         pyxel.cls(1)
         self.platform = Platform()
         self.ball = Ball(self.platform)
         self.blocks: list[Block] = list()
         for i in range(10):
-            self.blocks.append(Block(i*10 + i*20, 10, self.ball))
+            self.blocks.append(Block(i*10 + i*20 + 10, 30, self.ball))
 
     def update(self):
-        global play, lost
+        global play, lost, score
         if play:
             self.platform.update()
             self.ball.update()
             for block in self.blocks:
                 if block.collide_with_ball():
                     self.blocks.remove(block)
+                    score += 1
         else:
             if pyxel.btn(pyxel.KEY_SPACE):
                 self.startGame()
@@ -39,12 +43,13 @@ class App:
                 lost = False
 
     def draw(self):
-        global play, lost
+        global play, lost, score
         pyxel.cls(1)
         if not play:
-            pyxel.text(WINDOW_WIDTH * .38, WINDOW_HEIGHT * .4, "Press SPACE to play", 11)
+            pyxel.text(WINDOW_WIDTH * .38, WINDOW_HEIGHT * .4, "Press SPACE to play", 7)
         if lost:
-            pyxel.text(WINDOW_WIDTH * .435, WINDOW_HEIGHT * .35, "Game Over!", 11)
+            pyxel.text(WINDOW_WIDTH * .435, WINDOW_HEIGHT * .35, "Game Over!", 7)
+        pyxel.text(WINDOW_WIDTH * .85, WINDOW_HEIGHT * .025, f"Score: {score}", 7)
         self.platform.draw()
         self.ball.draw()
         for block in self.blocks:
@@ -117,7 +122,7 @@ class Block:
         self.ball: Ball = ball
 
     def draw(self):
-        pyxel.rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE, 7)
+        pyxel.rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE, 11)
 
     def collide_with_ball(self):
         offset = BLOCK_SIZE // 2
