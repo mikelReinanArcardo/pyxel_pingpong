@@ -20,7 +20,7 @@ class App:
         # Minimum Platform Speed: x
         # Maximum Ball Speed: y
         # Max no. of Blocks : 40
-        num_of_blocks = level * 3 + 10
+        num_of_blocks = min(level * 3 + 10, 40)
         blocks_pos = list()
         for _ in range(num_of_blocks):
             block_coords = self.get_block_pos()
