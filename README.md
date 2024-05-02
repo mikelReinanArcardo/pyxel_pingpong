@@ -3,12 +3,12 @@
 
 ## About the Project
 This project was made to enhance my skill in using pyxel
-
 <br>
+
 ### Built With
 * Pyxel
-
 <br>
+
 ## Getting Started
 ### Prerequisites
 Make sure you have <a href="https://www.python.org/downloads/">Python3</a> (version 3.7 or higher), before installing the ff:
@@ -22,15 +22,15 @@ pip install -U pyxel
 ```sh
 python3 -m pip install -U pyxel
 ```
-
 <br>
+
 ### Installation
 * Clone the repo
 ```sh
 git clone https://github.com/mikelReinanArcardo/pyxel_pingpong.git
 ```
-
 <br>
+
 ### Usage
 1. Run the ff code to start the game:
 ```sh
