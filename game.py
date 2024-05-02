@@ -5,9 +5,13 @@ from game_ball import Ball
 from game_platform import Platform
 from game_block import Block
 
+# POSSIBLE BUGS
+# 1. Ball may get stuck between platform and wall
+# 2. Ball doesn't bounce when hitting the corner of moving platform
+
 class App:
     def __init__(self):
-        pyxel.init(global_vars.WINDOW_WIDTH, global_vars.WINDOW_HEIGHT)
+        pyxel.init(global_vars.WINDOW_WIDTH, global_vars.WINDOW_HEIGHT, title="Pong Game")
         self.startGame()
         pyxel.run(self.update, self.draw)
 
@@ -16,8 +20,6 @@ class App:
         self.platform = Platform(max(-level*.2 + 5, 3))
         self.ball = Ball(self.platform, min(level*.2 + 5, 7))
         self.blocks: list[Block] = list()
-        # Make game endless by adding progresion
-        # Minimum Platform Speed: x
         num_of_blocks = min(level * 3 + 10, 40)
         blocks_pos = list()
         for _ in range(num_of_blocks):
