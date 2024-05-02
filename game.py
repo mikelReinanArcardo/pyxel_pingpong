@@ -13,7 +13,7 @@ class App:
 
     def startGame(self, level=global_vars.level):
         pyxel.cls(1)
-        self.platform = Platform()
+        self.platform = Platform(max(-level*.2 + 5, 3))
         self.ball = Ball(self.platform, min(level*.2 + 5, 7))
         self.blocks: list[Block] = list()
         # Make game endless by adding progresion
