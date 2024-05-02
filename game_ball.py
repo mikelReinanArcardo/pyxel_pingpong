@@ -2,7 +2,7 @@ import pyxel
 import global_vars
 
 class Ball: 
-    def __init__(self, platform):
+    def __init__(self, platform, speed):
         self.x = global_vars.WINDOW_WIDTH // 2
         self.y = global_vars.WINDOW_HEIGHT // 2
         self.xDirection = 0
@@ -11,11 +11,12 @@ class Ball:
         self.bot = self.y + global_vars.BALL_RADIUS
         self.right = self.x + global_vars.BALL_RADIUS
         self.left = self.x - global_vars.BALL_RADIUS
+        self.speed = speed
         self.platform = platform
 
     def update(self):
-        self.x += 5 * self.xDirection
-        self.y += 5 * self.yDirection
+        self.x += self.speed * self.xDirection
+        self.y += self.speed * self.yDirection
         self.top = self.y - global_vars.BALL_RADIUS
         self.bot = self.y + global_vars.BALL_RADIUS
         self.right = self.x + global_vars.BALL_RADIUS
