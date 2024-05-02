@@ -1,5 +1,6 @@
 import pyxel
 import global_vars
+from random import random
 from game_ball import Ball
 from game_platform import Platform
 from game_block import Block
@@ -10,14 +11,27 @@ class App:
         self.startGame()
         pyxel.run(self.update, self.draw)
 
-    def startGame(self):
+    def startGame(self, level=0):
         global_vars.score = 0
         pyxel.cls(1)
         self.platform = Platform()
         self.ball = Ball(self.platform)
         self.blocks: list[Block] = list()
-        for i in range(10):
-            self.blocks.append(Block(i*10 + i*20 + 10, 30, self.ball))
+        # Make game endless by adding progresion
+        # Minimum Platform Speed: x
+        # Maximum Ball Speed: y
+        # Max no. of Blocks : 40
+        num_of_blocks = level * 3 + 10
+        blocks_pos = list()
+        # Kinda slow? 
+        for _ in range(num_of_blocks):
+            block_coords = self.get_block_pos()
+
+            while (self.collides_with_other_blocks(blocks_pos, block_coords)):
+                block_coords = self.get_block_pos()
+
+            blocks_pos.append(block_coords)
+            self.blocks.append(Block(block_coords[0], block_coords[1], self.ball))
 
     def update(self):
         if global_vars.play:
@@ -44,5 +58,17 @@ class App:
         self.ball.draw()
         for block in self.blocks:
             block.draw()
+
+    def get_block_pos(self):
+        xPos = min(10 + random() * global_vars.WINDOW_WIDTH, global_vars.WINDOW_WIDTH - 20) 
+        yPos = min(10 + random() * (global_vars.WINDOW_HEIGHT / 2), global_vars.WINDOW_HEIGHT / 2 - 10)
+        return (xPos, yPos)
+
+    def collides_with_other_blocks(self, block_pos, curr_block):
+        for block_x, block_y in block_pos:
+            curr_block_x, curr_block_y = curr_block
+            if abs(curr_block_x - block_x) <= global_vars.BLOCK_SIZE or abs(curr_block_y - block_y) <= global_vars.BLOCK_SIZE:
+                return True
+        return False
 
 App()
