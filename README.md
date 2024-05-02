@@ -1,6 +1,10 @@
 # Pong Game
 <br>
 
+## Demo
+![ScreenRecording2024-05-02at4 48 52PM-ezgif com-video-to-gif-converter](https://github.com/mikelReinanArcardo/pyxel_pingpong/assets/130211353/4b0e1208-350b-4f77-8a4b-4a829a9cbd3c)
+<br>
+
 ## About the Project
 This project was made to enhance my skill in using pyxel
 <br>
@@ -42,7 +46,3 @@ the ball's speed increases, and the platform's speed decreases. Try to get the h
     * *Left Arrow Key:* Move the platform to the left
     * *Right Arrow Key:* Move the platform to the right
     * *Space Key:* Start game
-<br>
-
-## Demo
-![ScreenRecording2024-05-02at4 48 52PM-ezgif com-video-to-gif-converter](https://github.com/mikelReinanArcardo/pyxel_pingpong/assets/130211353/4b0e1208-350b-4f77-8a4b-4a829a9cbd3c)
