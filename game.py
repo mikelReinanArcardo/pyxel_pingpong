@@ -67,7 +67,7 @@ class App:
     def collides_with_other_blocks(self, block_pos, curr_block):
         for block_x, block_y in block_pos:
             curr_block_x, curr_block_y = curr_block
-            if abs(curr_block_x - block_x) <= global_vars.BLOCK_SIZE or abs(curr_block_y - block_y) <= global_vars.BLOCK_SIZE:
+            if abs(curr_block_x - block_x) <= global_vars.BLOCK_SIZE and abs(curr_block_y - block_y) <= global_vars.BLOCK_SIZE:
                 return True
         return False
 
