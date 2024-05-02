@@ -11,8 +11,7 @@ class App:
         self.startGame()
         pyxel.run(self.update, self.draw)
 
-    def startGame(self, level=0):
-        global_vars.score = 0
+    def startGame(self, level=global_vars.level):
         pyxel.cls(1)
         self.platform = Platform()
         self.ball = Ball(self.platform)
@@ -23,33 +22,44 @@ class App:
         # Max no. of Blocks : 40
         num_of_blocks = level * 3 + 10
         blocks_pos = list()
-        # Kinda slow? 
         for _ in range(num_of_blocks):
             block_coords = self.get_block_pos()
 
             while (self.collides_with_other_blocks(blocks_pos, block_coords)):
-                block_coords = self.get_block_pos()
+                new_coords = self.get_block_pos()
+                block_coords = new_coords
 
             blocks_pos.append(block_coords)
             self.blocks.append(Block(block_coords[0], block_coords[1], self.ball))
 
     def update(self):
         if global_vars.play:
+            if (not self.blocks):
+                global_vars.level += 1
+                global_vars.play = False
             self.platform.update()
             self.ball.update()
             for block in self.blocks:
                 if block.collide_with_ball():
                     self.blocks.remove(block)
                     global_vars.score += 1
-        else:
-            if pyxel.btn(pyxel.KEY_SPACE):
+
+        elif pyxel.btn(pyxel.KEY_SPACE):
+            if global_vars.lost:
                 self.startGame()
+                global_vars.level = 0
+                global_vars.score = 0
                 global_vars.play = True
                 global_vars.lost = False
+            else: 
+                self.startGame(global_vars.level)
+                global_vars.play = True
 
     def draw(self):
         pyxel.cls(1)
         if not global_vars.play:
+            if global_vars.level > 0 and not global_vars.lost:
+                pyxel.text(global_vars.WINDOW_WIDTH * .35, global_vars.WINDOW_HEIGHT * .35, "Ready for the next round?", 7)
             pyxel.text(global_vars.WINDOW_WIDTH * .38, global_vars.WINDOW_HEIGHT * .4, "Press SPACE to play", 7)
         if global_vars.lost:
             pyxel.text(global_vars.WINDOW_WIDTH * .435, global_vars.WINDOW_HEIGHT * .35, "Game Over!", 7)

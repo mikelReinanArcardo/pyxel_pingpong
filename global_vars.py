@@ -10,3 +10,4 @@ BLOCK_SIZE = 10
 play = False
 lost = False
 score = 0
+level = 0
