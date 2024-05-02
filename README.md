@@ -1,17 +1,16 @@
 # Pong Game
-
+<br> <br>
 
 ## About the Project
 This project was made to enhance my skill in using pyxel
 
-
+<br> <br>
 ### Built With
 * Pyxel
 
-
+<br> <br>
 ## Getting Started
-
-
+<br>
 ### Prerequisites
 Make sure you have <a href="https://www.python.org/downloads/">Python3</a> (version 3.7 or higher), before installing the ff:
 * Install pyxel
@@ -25,14 +24,14 @@ pip install -U pyxel
 python3 -m pip install -U pyxel
 ```
 
-
+<br> <br>
 ### Installation
 * Clone the repo
 ```sh
 git clone https://github.com/mikelReinanArcardo/pyxel_pingpong.git
 ```
 
-
+<br> <br>
 ### Usage
 1. Run the ff code to start the game:
 ```sh
