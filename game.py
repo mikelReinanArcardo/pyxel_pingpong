@@ -8,6 +8,7 @@ from game_block import Block
 # POSSIBLE BUGS
 # 1. Ball may get stuck between platform and wall
 # 2. Ball doesn't bounce when hitting the corner of moving platform
+# Hello World
 
 class App:
     def __init__(self):
