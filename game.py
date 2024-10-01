@@ -10,6 +10,8 @@ from game_block import Block
 # 2. Ball doesn't bounce when hitting the corner of moving platform
 # Hello World
 
+# Shereena
+
 class App:
     def __init__(self):
         pyxel.init(global_vars.WINDOW_WIDTH, global_vars.WINDOW_HEIGHT, title="Pong Game")
